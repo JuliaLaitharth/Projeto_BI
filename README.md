@@ -1,4 +1,4 @@
-## 1. Plano do Projeto: Data Warehouse de Gestão Financeira
+## 1. Plano do Projeto
 
 ### 1.1. Objetivo do Projeto
 O objetivo principal deste projeto é consolidar 12 meses de transações de cartões de crédito de diferentes titulares num único ambiente analítico (Data Warehouse). O foco é transformar dados brutos e desestruturados (arquivos CSV) em informações organizadas que permitam identificar padrões de consumo, gastos por categoria e gestão de parcelamentos.
@@ -52,7 +52,8 @@ O modelo é composto por uma Tabela de Fato centralizada, que se relaciona com m
 ### 2.2. Diagrama de Entidade-Relacionamento (ERD)
 Abaixo, apresenta-se a visualização técnica das tabelas e suas conexões (Chaves Primárias e Estrangeiras) conforme implementado no servidor **PostgreSQL**:
 
-<img src="Projeto_BI/bipst.png" alt="Diagrama BI" width="600">
+<img width="1174" height="836" alt="bipst" src="https://github.com/user-attachments/assets/1877401f-3220-493a-8fbe-860c5a68fcfc" />
+
 
 ### 2.3. Vantagens da Arquitetura Adotada
 1.  **Redução de Redundância:** Os nomes dos titulares e categorias são armazenados apenas uma vez em suas respectivas dimensões.
