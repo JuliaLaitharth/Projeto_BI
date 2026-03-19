@@ -60,3 +60,36 @@ Abaixo, apresenta-se a visualização técnica das tabelas e suas conexões (Cha
 2.  **Facilidade de Uso:** Permite que ferramentas de BI criem filtros  de forma nativa e rápida.
 3.  **Escalabilidade:** Novos titulares ou novos meses de dados podem ser adicionados sem alterar a estrutura das tabelas existentes.
 
+
+## 3. Processo de ETL (Extract, Transform, Load) e Resultados
+
+### 3.1. Implementação do Script Python
+A automação do fluxo de dados foi desenvolvida em Python, utilizando as bibliotecas Pandas para manipulação e SQLAlchemy para a persistência no banco de dados PostgreSQL. O processo seguiu três etapas:
+
+Extração (Extract): O script utiliza a biblioteca glob para mapear a pasta de faturas e ler automaticamente todos os 12 arquivos CSV, consolidando em um único DataFrame.
+
+Transformação (Transform):
+
+Higienização de Strings: Aplicação de Regex para remover prefixos de adquirentes (ex: PAG*, IFD*, UBER *) dos nomes dos estabelecimentos.
+
+Tratamento de Tipos: Conversão de valores monetários de string para float e tratamento de datas.
+
+Lógica de Parcelas: Divisão da coluna de parcelamento (ex: "2/10") em colunas numéricas de parcela_atual e total_parcelas.
+
+Carga (Load): Utilização da técnica de Upsert. O código verifica se o titular ou a categoria já existem nas tabelas de dimensão antes de inserir, garantindo que não haja duplicidade de registros.
+
+### 3.2. Resultados e Validação (Queries SQL)
+Para validar a integridade do Data Warehouse, foram executadas consultas analíticas no pgAdmin 4. Abaixo seguem as evidências do banco de dados populado:
+
+### A) Gasto Total por Titular 
+
+O relacionamento entre a fato_transacao e a dim_titular está funcionando.
+
+<img width="769" height="646" alt="Captura de Tela 2026-03-19 às 08 06 40" src="https://github.com/user-attachments/assets/43c40a15-04fc-491d-a16e-f0b0080f9a04" />
+
+
+### B) Top 5 Categorias de Maior Gasto
+
+Demonstra a classificação correta das despesas processadas pelo ETL.
+
+<img width="785" height="681" alt="Captura de Tela 2026-03-19 às 08 07 45" src="https://github.com/user-attachments/assets/b650d0ab-de83-40dd-920a-27936cd6b864" />
