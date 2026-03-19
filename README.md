@@ -56,14 +56,6 @@ Abaixo, apresenta-se a visualização técnica das tabelas e suas conexões (Cha
 
 ### 2.3. Vantagens da Arquitetura Adotada
 1.  **Redução de Redundância:** Os nomes dos titulares e categorias são armazenados apenas uma vez em suas respectivas dimensões.
-2.  **Facilidade de Uso:** Permite que ferramentas de BI (como Power BI ou Looker) criem filtros (Slicers) de forma nativa e rápida.
+2.  **Facilidade de Uso:** Permite que ferramentas de BI criem filtros  de forma nativa e rápida.
 3.  **Escalabilidade:** Novos titulares ou novos meses de dados podem ser adicionados sem alterar a estrutura das tabelas existentes.
 
----
-
-### O que falta agora para fechar o trabalho?
-
-Agora que você já tem o **Plano** e a **Arquitetura**, falta apenas o último tópico:
-* **Tópico 3: Processo ETL e Resultados:** Onde você explica o código Python e mostra os prints das tabelas preenchidas no banco de dados.
-
-**Gostaria que eu preparasse o texto do Tópico 3 e as Queries SQL para você gerar os últimos prints de resultados?**
