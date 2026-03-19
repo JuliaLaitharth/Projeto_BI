@@ -52,7 +52,7 @@ O modelo é composto por uma Tabela de Fato centralizada, que se relaciona com m
 ### 2.2. Diagrama de Entidade-Relacionamento (ERD)
 Abaixo, apresenta-se a visualização técnica das tabelas e suas conexões (Chaves Primárias e Estrangeiras) conforme implementado no servidor **PostgreSQL**:
 
-<img src="docs/bipst.png" alt="Diagrama BI" width="600">
+<img src="Projeto_BI/bipst.png" alt="Diagrama BI" width="600">
 
 ### 2.3. Vantagens da Arquitetura Adotada
 1.  **Redução de Redundância:** Os nomes dos titulares e categorias são armazenados apenas uma vez em suas respectivas dimensões.
