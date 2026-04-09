@@ -1,59 +1,45 @@
-## 1. Plano do Projeto
+## Gestão de Transações de Cartão de Crédito
 
-### 1.1. Objetivo do Projeto
-O objetivo principal deste projeto é consolidar 12 meses de transações de cartões de crédito de diferentes titulares num único ambiente analítico (Data Warehouse). O foco é transformar dados brutos e desestruturados (arquivos CSV) em informações organizadas que permitam identificar padrões de consumo, gastos por categoria e gestão de parcelamentos.
+Este projeto consiste na implementação de um ecossistema completo de Business Intelligence, desde a ingestão de dados brutos (faturas de cartão) até a visualização analítica. O objetivo é transformar 12 meses de transações dispersas em um Data Warehouse (DW) estruturado sob o modelo dimensional Star Schema.
 
-### 1.2. Justificação 
-Os dados originais apresentam inconsistências que impedem uma análise direta:
+Período coberto: Março/2025 a Fevereiro/2026
 
-Nomes de estabelecimentos poluídos: Presença de códigos de máquinas de cartão.
+Tecnologias: Python (Pandas/SQLAlchemy), PostgreSQL e Metabase.
 
-Dados não numéricos: Informação de parcelas misturada com texto.
+## 1. Plano do Projeto e Objetivos
+### 1.1. Contexto de Negócio
 
-Dispersão de ficheiros: Dados espalhados por 12 ficheiros mensais independentes.
+O projeto simula a necessidade de uma instituição financeira em analisar padrões de gastos, comportamento por titular e categorias de consumo. Os dados originais são extraídos de 12 arquivos CSV (faturas mensais) anonimizados.
 
-### 1.3. Escopo Técnico 
-Para a execução, foi definida a seguinte stack:
+### 1.2. Objetivos Técnicos
 
-Linguagem: Python 3.9.
+Modelagem Dimensional: Construção de um Star Schema para otimização de consultas.
 
-Bibliotecas de Dados: Pandas e SQLAlchemy.
+Pipeline ETL: Limpeza, padronização e carga automatizada via Python.
 
-Base de Dados: PostgreSQL.
-
-Controlo de Versão: Github.
-
-### 1.4. Arquitetura da Solução
-A solução foi desenhada seguindo o ciclo ETL (Extract, Transform, Load):
-
-Extração: Leitura em lote de todos os arquivos .csv na pasta do projeto.
-
-Transformação: Higienização de strings via Regex, conversão de tipos monetários e cálculo de parcelas.
-
-Carga: Distribuição dos dados no modelo Star Schema.
-
+Inteligência de Negócio: Desenvolvimento de dashboards para suporte à decisão.
 
 ## 2. Arquitetura do Data Warehouse
+### 2.1. Modelo Dimensional (Star Schema)
 
-### 2.1. Modelo Dimensional 
-A arquitetura de dados foi desenhada seguindo o padrão Star Schema. Esta escolha justifica-se pela necessidade de performance em consultas analíticas e pela clareza na separação de responsabilidades entre tabelas de métricas e tabelas de contexto.
+Para garantir performance e clareza, a arquitetura foi dividida em:
 
-O modelo é composto por uma Tabela de Fato centralizada, que se relaciona com múltiplas Tabelas de Dimensão;
+Tabela de Fato (fato_transacao): Armazena as métricas (valores em BRL, USD, cotação) e chaves estrangeiras.
 
-* **Tabela de Fato (`fato_transacao`):** Armazena os eventos quantitativos (as compras). Contém as chaves estrangeiras (FKs) que ligam às dimensões e as métricas principais, como `valor_brl`, `valor_usd` e o controle de parcelas (`num_parcela` e `total_parcelas`).
-* **Tabelas de Dimensão (Contexto):**
-    * **`dim_data`:** Permite a análise temporal detalhada (ano, mês, trimestre, dia da semana).
-    * **`dim_titular`:** Identifica quem realizou o gasto (Vin Diesel, Eva Mendes, etc.).
-    * **`dim_categoria`:** Classifica a natureza do gasto (Alimentação, Lazer, etc.).
-    * **`dim_estabelecimento`:** Armazena o local da transação de forma higienizada.
+Dimensões:
 
+dim_data: Atributos temporais (dia, mês, ano, trimestre, dia da semana).
 
+dim_titular: Nome do titular e final do cartão (cartão lógico).
 
-### 2.2. Diagrama de Entidade-Relacionamento (ERD)
-Abaixo, apresenta-se a visualização técnica das tabelas e suas conexões (Chaves Primárias e Estrangeiras) conforme implementado no servidor **PostgreSQL**:
+dim_categoria: Classificação do tipo de gasto (MCC).
+
+dim_estabelecimento: Nomes higienizados (remoção de ruídos de operadoras).
+
+### 2.2. Diagrama Entidade-Relacionamento (DER)
+Abaixo, apresenta-se a visualização técnica das tabelas e suas conexões (Chaves Primárias e Estrangeiras) conforme implementado no servidor PostgreSQL:
 
 <img width="1174" height="836" alt="bipst" src="https://github.com/user-attachments/assets/1877401f-3220-493a-8fbe-860c5a68fcfc" />
-
 
 ### 2.3. Vantagens da Arquitetura Adotada
 1.  **Redução de Redundância:** Os nomes dos titulares e categorias são armazenados apenas uma vez em suas respectivas dimensões.
@@ -93,3 +79,71 @@ O relacionamento entre a fato_transacao e a dim_titular está funcionando.
 Demonstra a classificação correta das despesas processadas pelo ETL.
 
 <img width="785" height="681" alt="Captura de Tela 2026-03-19 às 08 07 45" src="https://github.com/user-attachments/assets/b650d0ab-de83-40dd-920a-27936cd6b864" />
+
+
+## 4. Análise de Dados e BI
+### 4.1. Perguntas de Negócio Respondidas
+
+Gasto total por titular por mês.
+![alt text](image-3.png)
+
+Top 10 categorias de maior impacto financeiro.
+![alt text](image-4.png)
+![alt text](image-5.png)
+
+Evolução mensal do total gasto (série temporal).
+![alt text](image-6.png)
+![alt text](image-7.png)
+
+Compras internacionais com cotaçao
+![alt text](image-8.png)
+
+Análise de estornos.
+![alt text](image-9.png)
+
+### 4.2. Dashboard Analítico (Metabase)
+
+As visualizações foram construídas no Metabase, conectadas diretamente ao DW.
+
+![alt text](image-1.png)
+
+![alt text](image-2.png)
+
+5. Estrutura do Repositório
+Plaintext
+Projeto_BI/
+├── faturas/             # Arquivos CSV originais (Dados Brutos)
+├── scripts/             # Pipeline ETL (etl_projeto.py)
+├── sql/                 # Scripts de criação e queries analíticas
+│   ├── analise_gastos.sql
+│   ├── compras_internacionais.sql
+│   ├── criacao_banco.sql
+│   ├── estornos.sql    
+├── requirements.txt     # Dependências do projeto
+└── README.md
+
+## 5. Como Executar o Projeto
+
+### 5.1  Configurar o Banco de Dados:
+    No PostgreSQL (via pgAdmin ou terminal), crie o banco de dados que receberá o Data Warehouse:
+    ```sql
+    CREATE DATABASE bi;
+    ```
+
+### 5.2  Instalar Dependências:
+    Certifique-se de ter o Python instalado e execute o comando para instalar as bibliotecas necessárias:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+### 5.3 Executar o Pipeline ETL:
+    Com os arquivos CSV dentro da pasta `/faturas`, execute o script principal para realizar a extração, limpeza e carga dos dados:
+    ```bash
+    python etl_projeto.py
+    ```
+
+### 5.4 Conectar a Ferramenta de BI:**
+    * Abra o **Metabase**.
+    * Adicione uma nova base de dados do tipo PostgreSQL.
+    * Utilize o nome do banco: `bi`.
+    * Crie seus dashboards utilizando as queries salvas na pasta `/sql`.
