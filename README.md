@@ -113,12 +113,13 @@ As visualizações foram construídas no Metabase, conectadas diretamente ao DW.
 Plaintext
 Projeto_BI/
 ├── faturas/             # Arquivos CSV originais (Dados Brutos)
-├── scripts/             # Pipeline ETL (etl_projeto.py)
+├── images/            
 ├── sql/                 # Scripts de criação e queries analíticas
 │   ├── analise_gastos.sql
 │   ├── compras_internacionais.sql
 │   ├── criacao_banco.sql
-│   ├── estornos.sql    
+│   ├── estornos.sql   
+├── etl_projeto.py  
 ├── requirements.txt     # Dependências do projeto
 └── README.md
 
