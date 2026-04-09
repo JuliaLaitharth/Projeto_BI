@@ -85,29 +85,29 @@ Demonstra a classificação correta das despesas processadas pelo ETL.
 ### 4.1. Perguntas de Negócio Respondidas
 
 Gasto total por titular por mês.
-![alt text](image-3.png)
+![alt text](images/image-3.png)
 
 Top 10 categorias de maior impacto financeiro.
-![alt text](image-4.png)
-![alt text](image-5.png)
+![alt text](images/image-4.png)
+![alt text](images/image-5.png)
 
 Evolução mensal do total gasto (série temporal).
-![alt text](image-6.png)
-![alt text](image-7.png)
+![alt text](images/image-6.png)
+![alt text](images/image-7.png)
 
 Compras internacionais com cotaçao
-![alt text](image-8.png)
+![alt text](images/image-8.png)
 
 Análise de estornos.
-![alt text](image-9.png)
+![alt text](images/image-9.png)
 
 ### 4.2. Dashboard Analítico (Metabase)
 
 As visualizações foram construídas no Metabase, conectadas diretamente ao DW.
 
-![alt text](image-1.png)
+![alt text](images/image-1.png)
 
-![alt text](image-2.png)
+![alt text](images/image-2.png)
 
 5. Estrutura do Repositório
 Plaintext
