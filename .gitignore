@@ -1,3 +1,6 @@
 metabase.jar
 plugins/
 *.db
+faturas/
+faturas/
+metabase.db*
