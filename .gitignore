@@ -1,3 +1,4 @@
-faturas/*.csv
+metabase.jar
 metabase.db*
+plugins/
 .DS_Store
